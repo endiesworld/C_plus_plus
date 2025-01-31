@@ -1,6 +1,14 @@
 #include <iostream>
 #include <string>
 
+/*
+    Headers Should Not Include using Declarations
+    Code inside headers ordinarily should not use using declarations.
+    The reason is that the contents of a header are copied into the including program’s
+    text. If a header has a using declaration, then every program that includes that
+    header gets that same using declaration. As a result, a program that didn’t intend
+    to use the specified library name might encounter unexpected name conflicts.
+*/
 using std::string;
 using std::cin;
 using std::cout;
@@ -32,6 +40,8 @@ int main(){
 
     cout << "Enter your first name and last name: " << endl;
     cin>>firstname>>lastname;
+    // When we mix strings and string or character literals, at least one operand to each +operator must be of string type
+    // string s5 = "hello" + ", "; // error: no string operand. "hello" is a string literal and ", " is a string literal
     cout << greeting + " " + firstname + " " + lastname + "!" << endl;
 
     // Reading an Unknown Number of strings or invalid input
@@ -52,10 +62,11 @@ int main(){
         condition. The following loop reads an entire line at a time:
     */
     string line;
-    // read input a line at a time until end-of-file
-    while (getline(cin, line))
+    // read input a line at a time until end-of-file. The newline that causes getline to return is discarded; the newline is
+    //not stored in the string.
+    while (getline(cin, line)) 
         if (line.size() > 80)
-            cout << line << endl; // write each line followed by a new line
+            cout<< line << endl; // write each line followed by a new line
 
     // The string::size_type Type
     /*
@@ -67,7 +78,9 @@ int main(){
         say that the name size_type is defined in the string class. 
         The type string::size_type is an unsigned type that is big enough to hold the size of any string.
     */
-
+    // Any variable used to store the result from the string size operation
+    // should be of type string::size_type. Under the new
+    //standard, we can ask the compiler to provide the appropriate type by using auto or decltype
     auto len = line.size(); // len has type string::size_type
     cout << "Length of line: " << len << endl;
 
